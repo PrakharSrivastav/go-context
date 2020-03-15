@@ -21,22 +21,29 @@ examples discussed in this blog post.
 ```go
 func main() {
     _,cancel := context.WithCancel(parentCtx)
-    cancel() // call the cancel to cancel the context
+    // call the cancel to cancel the context
+    cancel()
 }
 ```
 
 2. cancelling after few seconds
 ```go
 func main() {
-    _,cancel := context.WithTimeout(parentCtx, time.Second * 10) // cancel the context in 10 seconds
-    defer cancel() // cancel explicitly (when function returns) 
+    // cancel the context in 10 seconds
+    _,cancel := context.WithTimeout(parentCtx, time.Second * 10) 
+    
+    // cancel explicitly (when function returns)
+    defer cancel()  
 }
 ```
 
 3. cancelling at a given time
 ```go
 func main() {
-    _,cancel := context.WithDeadline(parentCtx, time.Now().Add(2 * time.Second)) // cancel the context at given time
-    defer cancel() // cancel explicitly (when function returns) 
+    // cancel the context at given time
+    _,cancel := context.WithDeadline(parentCtx, time.Now().Add(2 * time.Second)) 
+
+    // cancel explicitly (when function returns)
+    defer cancel()
 }
 ```
