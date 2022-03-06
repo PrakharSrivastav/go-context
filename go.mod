@@ -1,3 +1,3 @@
-module context-cancellation
+module github.com/PrakharSrivastav/go-context
 
 go 1.17
