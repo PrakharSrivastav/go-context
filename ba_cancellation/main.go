@@ -6,9 +6,19 @@ import (
 	"io"
 	"log"
 	"os"
+	"runtime"
+	"strings"
 	"time"
 )
 
+func init() {
+	go func() {
+		for {
+			log.Println("NumGoroutines :", runtime.NumGoroutine())
+			time.Sleep(time.Millisecond * 100)
+		}
+	}()
+}
 func main() {
 	ctx, stop := context.WithCancel(context.Background())
 	defer stop()
@@ -74,7 +84,7 @@ func do(filename string, out chan string, errChan chan error, done chan struct{}
 			return
 		}
 		time.Sleep(time.Millisecond * 30)
-		out <- line
+		out <- strings.TrimSpace(line)
 	}
 	done <- struct{}{}
 	return
